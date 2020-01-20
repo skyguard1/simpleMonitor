@@ -38,4 +38,9 @@ public class CallTracer implements Tracer {
        methodInfo.setStatus("exception");
        methodInfo.buildMessage(message);
     }
+
+    private void sendResult(){
+
+    }
+
 }
