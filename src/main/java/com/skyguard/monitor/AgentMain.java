@@ -19,7 +19,6 @@ public class AgentMain {
             // 传入目标 JVM pid
             VirtualMachine vm = VirtualMachine.attach("8952");
             vm.loadAgent("/Users/xingrufei/IdeaProjects/simpleMonitor/target/simpleMonitor.jar");
-            System.in.read();
         }catch (Exception e){
             e.printStackTrace();
         }
