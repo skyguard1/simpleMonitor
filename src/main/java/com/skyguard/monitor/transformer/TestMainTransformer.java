@@ -1,7 +1,7 @@
-package com.skyguard.test.transformer;
+package com.skyguard.monitor.transformer;
 
-import com.skyguard.test.annotation.Trace;
-import com.skyguard.test.annotation.TraceMethod;
+import com.skyguard.monitor.annotation.Trace;
+import com.skyguard.monitor.annotation.TraceMethod;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
@@ -29,8 +29,8 @@ public class TestMainTransformer implements ClassFileTransformer {
     private final static Map<String, List<String>> methodMap = new HashMap<String, List<String>>();
 
     public TestMainTransformer() {
-        add("com.skyguard.test.MainTest.sayHello");
-        add("com.skyguard.test.MainTest.sayHello2");
+        add("com.skyguard.monitor.MainTest.sayHello");
+        add("com.skyguard.monitor.MainTest.sayHello2");
     }
 
     private void add(String methodString) {
@@ -66,10 +66,10 @@ public class TestMainTransformer implements ClassFileTransformer {
                         String outputStr = "\nSystem.out.println(\"this method " + methodName
                                 + " cost:\" +(endTime - startTime) +\"ms.\");\n";
 
-                        String testStr = "\nlong stime = endTime - startTime;\ncom.skyguard.test.trace.SimpleTracer.printMsg(\"" + className + "\",\"" + methodName + "\",stime);";
+                        String testStr = "\nlong stime = endTime - startTime;\ncom.skyguard.monitor.trace.SimpleTracer.printMsg(\"" + className + "\",\"" + methodName + "\",stime);";
 
                         CtMethod ctmethod = ctclass.getDeclaredMethod(methodName);
-                        String newMethodName = methodName + "$test";
+                        String newMethodName = methodName + "$monitor";
                         ctmethod.setName(newMethodName);
 
                         // 创建新的方法，复制原来的方法，名字为原来的名字

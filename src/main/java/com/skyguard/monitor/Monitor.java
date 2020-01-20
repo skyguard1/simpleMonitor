@@ -1,7 +1,7 @@
-package com.skyguard.test;
+package com.skyguard.monitor;
 
-import com.skyguard.test.annotation.Trace;
-import com.skyguard.test.annotation.TraceMethod;
+import com.skyguard.monitor.annotation.Trace;
+import com.skyguard.monitor.annotation.TraceMethod;
 
 import java.lang.management.ManagementFactory;
 

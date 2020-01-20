@@ -1,7 +1,7 @@
-package com.skyguard.test;
+package com.skyguard.monitor;
 
-import com.skyguard.test.transformer.TestMainTransformer;
-import com.skyguard.test.transformer.TestTransformer;
+import com.skyguard.monitor.transformer.TestMainTransformer;
+import com.skyguard.monitor.transformer.TestTransformer;
 import com.sun.tools.attach.VirtualMachine;
 
 import java.lang.instrument.Instrumentation;
