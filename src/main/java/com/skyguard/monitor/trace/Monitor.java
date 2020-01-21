@@ -38,7 +38,7 @@ public class Monitor {
 
     }
 
-    public void exception(Throwable throwable){
+    public static void exception(Throwable throwable){
 
         try{
             lock.lock();
@@ -62,7 +62,7 @@ public class Monitor {
 
     }
 
-    public static void end(){
+    public static void end(String result){
 
         try{
             lock.lock();
@@ -71,7 +71,7 @@ public class Monitor {
                 throw new RuntimeException("monitor execute error");
             }
 
-            tracer.end();
+            tracer.end(result);
 
         }catch (Exception e){
             LOG.error("set methodInfo error",e);

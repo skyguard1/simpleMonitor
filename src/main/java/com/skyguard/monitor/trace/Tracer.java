@@ -9,7 +9,7 @@ public interface Tracer {
 
     public void start();
 
-    public void end();
+    public void end(String result);
 
     public void throwsException(String message);
 

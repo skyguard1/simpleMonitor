@@ -12,7 +12,7 @@ public class MethodInfo {
     private String serviceName;
     private String className;
     private String methodName;
-    private List<String> params;
+    private List<Object> params;
     private String returnObj;
     private String status;
     private String message;
@@ -42,11 +42,11 @@ public class MethodInfo {
         this.methodName = methodName;
     }
 
-    public List<String> getParams() {
+    public List<Object> getParams() {
         return params;
     }
 
-    public void setParams(List<String> params) {
+    public void setParams(List<Object> params) {
         this.params = params;
     }
 
@@ -89,7 +89,7 @@ public class MethodInfo {
         return this;
     }
 
-    public MethodInfo buildParams(List<String> params){
+    public MethodInfo buildParams(List<Object> params){
         this.params = params;
         return this;
     }
