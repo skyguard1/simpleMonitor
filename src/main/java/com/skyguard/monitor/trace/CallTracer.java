@@ -3,6 +3,10 @@ package com.skyguard.monitor.trace;
 import com.skyguard.monitor.client.EsTransportClient;
 import com.skyguard.monitor.client.Transport;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author : xingrufei
  * create at:  2020-01-20  16:57
@@ -13,6 +17,8 @@ public class CallTracer implements Tracer {
     private LongCounter callStarted = new LongCounter();
     private LongCounter callSucceeded = new LongCounter();
     private LongCounter callFailed = new LongCounter();
+
+    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8,16,0,TimeUnit.SECONDS,new LinkedBlockingQueue<>(20));
 
 
     private Transport esTransportClient = new EsTransportClient();
@@ -50,7 +56,9 @@ public class CallTracer implements Tracer {
     }
 
     private void sendResult(){
-       esTransportClient.sendResult(methodInfo);
+        threadPoolExecutor.submit(()->{
+            esTransportClient.sendResult(methodInfo);
+        });
     }
 
 }
