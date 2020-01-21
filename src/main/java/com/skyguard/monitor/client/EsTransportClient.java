@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.Map;
 
 /**
  * @author : xingrufei
@@ -47,7 +48,8 @@ public class EsTransportClient implements Transport {
 
         try {
             String result = JsonUtil.toJsonString(methodInfo);
-            getClient().prepareIndex(methodInfo.getServiceName(), ES_MONITOR_NAME).setSource(result).get();
+            Map<String,Object> map = JsonUtil.toObject(result,Map.class);
+            getClient().prepareIndex(methodInfo.getServiceName(), ES_MONITOR_NAME).setSource(map).get();
         }catch (Exception e){
             LOG.error("set methodInfo error",e);
         }
@@ -59,7 +61,8 @@ public class EsTransportClient implements Transport {
 
         try {
             String result = JsonUtil.toJsonString(systemInfo);
-            getClient().prepareIndex("SYSTEM-INFO", ES_MONITOR_NAME).setSource(result).get();
+            Map<String,Object> map = JsonUtil.toObject(result,Map.class);
+            getClient().prepareIndex("SYSTEM-INFO", ES_MONITOR_NAME).setSource(map).get();
         }catch (Exception e){
             LOG.error("set methodInfo error",e);
         }

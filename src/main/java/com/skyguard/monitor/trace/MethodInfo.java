@@ -1,5 +1,8 @@
 package com.skyguard.monitor.trace;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,6 +18,8 @@ public class MethodInfo {
     private List<Object> params;
     private String returnObj;
     private String status;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date currentTime;
     private String message;
 
 
@@ -66,6 +71,14 @@ public class MethodInfo {
         this.status = status;
     }
 
+    public Date getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(Date currentTime) {
+        this.currentTime = currentTime;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -73,6 +86,8 @@ public class MethodInfo {
     public void setMessage(String message) {
         this.message = message;
     }
+
+
 
     public MethodInfo buildServiceName(String serviceName){
         this.serviceName = serviceName;

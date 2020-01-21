@@ -3,6 +3,7 @@ package com.skyguard.monitor.trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -25,7 +26,11 @@ public class Monitor {
             CallTracer tracer = threadLocal.get();
             if(tracer==null){
                 tracer = new CallTracer(methodInfo);
+                threadLocal.set(tracer);
             }
+            methodInfo.setCurrentTime(new Date());
+
+
 
             tracer.start();
 

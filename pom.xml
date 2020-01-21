@@ -6,7 +6,7 @@
 
     <groupId>com.skyguard.test</groupId>
     <artifactId>simpleMonitor</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
 
