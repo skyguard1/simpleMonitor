@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class MethodInfo {
 
+    private String serviceName;
     private String className;
     private String methodName;
     private List<String> params;
@@ -16,6 +17,14 @@ public class MethodInfo {
     private String status;
     private String message;
 
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
     public String getClassName() {
         return className;
@@ -63,6 +72,11 @@ public class MethodInfo {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public MethodInfo buildServiceName(String serviceName){
+        this.serviceName = serviceName;
+        return this;
     }
 
     public MethodInfo buildClassName(String className){

@@ -1,5 +1,8 @@
 package com.skyguard.monitor.trace;
 
+import com.skyguard.monitor.client.EsTransportClient;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @author : xingrufei
  * create at:  2020-01-20  16:57
@@ -11,6 +14,8 @@ public class CallTracer implements Tracer {
     private LongCounter callSucceeded = new LongCounter();
     private LongCounter callFailed = new LongCounter();
 
+    @Autowired
+    private EsTransportClient esTransportClient;
 
 
     private MethodInfo methodInfo;
@@ -30,6 +35,7 @@ public class CallTracer implements Tracer {
        callSucceeded.add();
        methodInfo.setStatus("end");
        methodInfo.buildMessage("method end");
+       sendResult();
     }
 
     @Override
@@ -37,10 +43,11 @@ public class CallTracer implements Tracer {
        callFailed.add();
        methodInfo.setStatus("exception");
        methodInfo.buildMessage(message);
+       sendResult();
     }
 
     private void sendResult(){
-
+       esTransportClient.sendResult(methodInfo);
     }
 
 }

@@ -56,6 +56,7 @@ public class Monitor {
             LOG.error("monitor error",e);
         }finally {
             lock.unlock();
+            threadLocal.remove();
         }
 
 
@@ -76,6 +77,7 @@ public class Monitor {
             LOG.error("set methodInfo error",e);
         }finally {
             lock.unlock();
+            threadLocal.remove();
         }
 
 

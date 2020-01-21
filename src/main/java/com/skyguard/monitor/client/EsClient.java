@@ -26,7 +26,7 @@ public class EsClient implements FactoryBean<Client> {
          * 用完记得要关闭
          */
         Client client = new PreBuiltTransportClient(Settings.builder().put("cluster.name", "elasticsearch").build())
-                .addTransportAddress(new TransportAddress(new InetSocketAddress("192.168.1.106", 9300)));
+                .addTransportAddress(new TransportAddress(new InetSocketAddress("localhost", 9300)));
 
         return client;
     }

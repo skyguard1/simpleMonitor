@@ -1,7 +1,11 @@
 package com.skyguard.monitor.client;
 
 import com.skyguard.monitor.trace.MethodInfo;
+import com.skyguard.monitor.trace.Monitor;
 import com.skyguard.monitor.util.JsonUtil;
+import org.elasticsearch.client.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,17 +17,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class EsTransportClient implements Transport {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Monitor.class);
+
+    private static final String ES_MONITOR_NAME = "monitor";
+
     @Autowired
-    private EsClient esClient;
+    private Client client;
 
     @Override
     public void sendResult(MethodInfo methodInfo) {
 
-        String result = JsonUtil.toJsonString(methodInfo);
-
-
-
-
+        try {
+            String result = JsonUtil.toJsonString(methodInfo);
+            client.prepareIndex(methodInfo.getServiceName(), ES_MONITOR_NAME).setSource(result).get();
+        }catch (Exception e){
+            LOG.error("set methodInfo error",e);
+        }
 
 
     }
