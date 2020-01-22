@@ -62,7 +62,7 @@ public class EsTransportClient implements Transport {
         try {
             String result = JsonUtil.toJsonString(systemInfo);
             Map<String,Object> map = JsonUtil.toObject(result,Map.class);
-            getClient().prepareIndex("SYSTEM-INFO", ES_MONITOR_NAME).setSource(map).get();
+            getClient().prepareIndex("system-info", ES_MONITOR_NAME).setSource(map).get();
         }catch (Exception e){
             LOG.error("set methodInfo error",e);
         }

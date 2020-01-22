@@ -1,5 +1,6 @@
 package com.skyguard.monitor.trace;
 
+import com.skyguard.monitor.MonitorServer;
 import com.skyguard.monitor.client.EsTransportClient;
 import com.skyguard.monitor.client.Transport;
 
@@ -18,7 +19,7 @@ public class CallTracer implements Tracer {
     private LongCounter callSucceeded = new LongCounter();
     private LongCounter callFailed = new LongCounter();
 
-    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8,16,0,TimeUnit.SECONDS,new LinkedBlockingQueue<>(20));
+    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(8, 16, 0, TimeUnit.SECONDS, new LinkedBlockingQueue<>(20));
 
 
     private Transport esTransportClient = new EsTransportClient();
@@ -32,31 +33,32 @@ public class CallTracer implements Tracer {
 
     @Override
     public void start() {
-       callStarted.add();
+        MonitorServer.run();
+        callStarted.add();
 
     }
 
     @Override
     public void end(String result) {
-       callSucceeded.add();
-       methodInfo.setReturnObj(result);
-       methodInfo.setStatus("end");
-       methodInfo.setMessage("method end");
-       ServiceCounter.addSuccessCount();
-       sendResult();
+        callSucceeded.add();
+        methodInfo.setReturnObj(result);
+        methodInfo.setStatus("end");
+        methodInfo.setMessage("method end");
+        ServiceCounter.addSuccessCount();
+        sendResult();
     }
 
     @Override
     public void throwsException(String message) {
-       callFailed.add();
-       methodInfo.setStatus("exception");
-       methodInfo.setMessage(message);
-       ServiceCounter.addErrorCount();
-       sendResult();
+        callFailed.add();
+        methodInfo.setStatus("exception");
+        methodInfo.setMessage(message);
+        ServiceCounter.addErrorCount();
+        sendResult();
     }
 
-    private void sendResult(){
-        threadPoolExecutor.submit(()->{
+    private void sendResult() {
+        threadPoolExecutor.submit(() -> {
             esTransportClient.sendResult(methodInfo);
         });
     }
