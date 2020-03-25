@@ -35,7 +35,6 @@ public class AgentManager {
                                 .or(nameStartsWith("sun"))
                                 .or(nameContains("asm"))
                                 .or(nameStartsWith("com.skyguard.monitor"))
-                                .or(nameStartsWith("com.intellij"))
                                 .or(nameStartsWith("java"))
                                 .or(nameStartsWith("jdk"))
                                 .or(ElementMatchers.<TypeDescription>isSynthetic()))
