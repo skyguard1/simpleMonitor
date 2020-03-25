@@ -1,7 +1,7 @@
 package com.skyguard.monitor;
 
+import com.skyguard.monitor.agent.AgentManager;
 import com.skyguard.monitor.transformer.TestMainTransformer;
-import com.skyguard.monitor.transformer.TestTransformer;
 import com.sun.tools.attach.VirtualMachine;
 
 import java.lang.instrument.Instrumentation;
@@ -46,15 +46,17 @@ public class AgentMain {
     }
 
     public static void agentmain(String args, Instrumentation inst) {
+        AgentManager agentManager = new AgentManager();
+        agentManager.runAgent(inst);
         //指定我们自己定义的Transformer，在其中利用Javassist做字节码替换
-        inst.addTransformer(new TestTransformer(), true);
-        try {
+//        inst.addTransformer(new TestTransformer(), true);
+        /*try {
             //重定义类并载入新的字节码
             inst.retransformClasses(Monitor.class);
             System.out.println("Agent Load Done.");
         } catch (Exception e) {
             System.out.println("agent load failed!");
-        }
+        }*/
     }
 
 
