@@ -20,7 +20,7 @@ public class AgentListener implements AgentBuilder.Listener{
 
     @Override
     public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, boolean b, DynamicType dynamicType) {
-        System.out.println("start transform class,type: " + typeDescription.getTypeName() + " ActualName: " + dynamicType.getTypeDescription().getActualName());
+        System.out.println("start transform class,type: " + typeDescription.getTypeName());
     }
 
     @Override

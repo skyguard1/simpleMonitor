@@ -14,8 +14,7 @@ import net.bytebuddy.utility.JavaModule;
  * create at:  2020-03-25  16:15
  * @description:
  */
-public class AgentClassManager implements AgentBuilder.Transformer{
-
+public class AgentClassManager implements AgentBuilder.Transformer {
 
 
     @Override

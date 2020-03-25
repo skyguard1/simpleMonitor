@@ -11,21 +11,20 @@ import java.util.concurrent.Callable;
  * create at:  2020-03-25  16:28
  * @description:
  */
-public class MethodInterceptor{
+public class MethodInterceptor {
 
-    public @RuntimeType
-    Object intercept(@This Object obj,
-                     @AllArguments Object[] allArguments,
-                     @SuperCall Callable<?> zuper,
-                     @Origin Method method
+    @RuntimeType
+    public Object intercept(@This Object obj,
+                            @AllArguments Object[] allArguments,
+                            @SuperCall Callable<?> zuper,
+                            @Origin Method method
     ) throws Throwable {
 
 
-        System.out.println("methodName:"+method.getName()+",params:"+ Arrays.toString(allArguments));
+        System.out.println("methodName:" + method.getName() + ",params:" + Arrays.toString(allArguments));
 
         return null;
     }
-
 
 
 }
