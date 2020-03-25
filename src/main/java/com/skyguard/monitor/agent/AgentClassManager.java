@@ -1,6 +1,7 @@
 package com.skyguard.monitor.agent;
 
 import com.skyguard.monitor.agent.interceptor.AgentInterceptor;
+import com.skyguard.monitor.annotation.TraceMethod;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
@@ -21,7 +22,7 @@ public class AgentClassManager implements AgentBuilder.Transformer{
     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
         return builder.visit(Advice
                 .to(AgentInterceptor.class)
-                .on(ElementMatchers.named("process"))
+                .on(ElementMatchers.isAnnotatedWith(TraceMethod.class))
         );
     }
 }
