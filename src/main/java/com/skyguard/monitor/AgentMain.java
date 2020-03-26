@@ -4,7 +4,9 @@ import com.skyguard.monitor.agent.AgentManager;
 import com.skyguard.monitor.transformer.TestMainTransformer;
 import com.sun.tools.attach.VirtualMachine;
 
+import java.io.File;
 import java.lang.instrument.Instrumentation;
+import java.net.URL;
 
 /**
  * @author : xingrufei
@@ -16,12 +18,47 @@ public class AgentMain {
 
     public static void main(String[] args) {
         try {
+            File file = findPath();
+            String filePath = file.getAbsolutePath();
+            filePath = filePath.substring(0,filePath.lastIndexOf("/"));
+            filePath = filePath + "/simpleMonitor.jar";
+            System.out.println("filePath:"+filePath);
             // 传入目标 JVM pid
-            VirtualMachine vm = VirtualMachine.attach("8952");
-            vm.loadAgent("/Users/xingrufei/IdeaProjects/simpleMonitor/target/simpleMonitor.jar");
-        }catch (Exception e){
+            VirtualMachine vm = VirtualMachine.attach("13716");
+            vm.loadAgent(filePath);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static File findPath() {
+        String classResourcePath = AgentMain.class.getName().replaceAll("\\.", "/") + ".class";
+
+        URL resource = ClassLoader.getSystemClassLoader().getResource(classResourcePath);
+        if (resource != null) {
+            String urlString = resource.toString();
+            System.out.println("The beacon class location is " + urlString );
+            int insidePathIndex = urlString.indexOf('!');
+            boolean isInJar = insidePathIndex > -1;
+            if (isInJar) {
+                urlString = urlString.substring(urlString.indexOf("file:"), insidePathIndex);
+                File agentJarFile = null;
+                try {
+                    agentJarFile = new File(new URL(urlString).toURI());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (agentJarFile.exists()) {
+                    return agentJarFile.getParentFile();
+                }
+            } else {
+                int prefixLength = "file:".length();
+                String classLocation = urlString.substring(prefixLength, urlString.length() - classResourcePath.length());
+                return new File(classLocation);
+            }
+        }
+
+        throw new RuntimeException("Can not locate agent jar file.");
     }
 
     /**
@@ -58,7 +95,6 @@ public class AgentMain {
             System.out.println("agent load failed!");
         }*/
     }
-
 
 
 }
