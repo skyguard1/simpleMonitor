@@ -20,11 +20,10 @@ public class AgentMain {
         try {
             File file = findPath();
             String filePath = file.getAbsolutePath();
-            filePath = filePath.substring(0,filePath.lastIndexOf("/"));
+            filePath = filePath.substring(0, filePath.lastIndexOf("/"));
             filePath = filePath + "/simpleMonitor.jar";
-            System.out.println("filePath:"+filePath);
             // 传入目标 JVM pid
-            VirtualMachine vm = VirtualMachine.attach("13716");
+            VirtualMachine vm = VirtualMachine.attach("13953");
             vm.loadAgent(filePath);
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,7 +36,6 @@ public class AgentMain {
         URL resource = ClassLoader.getSystemClassLoader().getResource(classResourcePath);
         if (resource != null) {
             String urlString = resource.toString();
-            System.out.println("The beacon class location is " + urlString );
             int insidePathIndex = urlString.indexOf('!');
             boolean isInJar = insidePathIndex > -1;
             if (isInJar) {
