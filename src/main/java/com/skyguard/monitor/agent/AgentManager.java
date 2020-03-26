@@ -9,8 +9,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 
 import java.lang.instrument.Instrumentation;
 
-import static net.bytebuddy.matcher.ElementMatchers.nameContains;
-import static net.bytebuddy.matcher.ElementMatchers.nameStartsWith;
+import static net.bytebuddy.matcher.ElementMatchers.*;
 
 /**
  * @author : xingrufei
@@ -51,6 +50,8 @@ public class AgentManager {
     private ElementMatcher.Junction<TypeDescription> getTypes() {
         ElementMatcher.Junction junction = ElementMatchers.failSafe(new ClassMatcher<>(ElementMatchers.any()));
 
+        junction.and(not(isInterface()))
+                .and(not(isStatic()));
 
 
         return junction;
