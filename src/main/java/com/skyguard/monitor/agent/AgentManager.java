@@ -1,7 +1,6 @@
 package com.skyguard.monitor.agent;
 
 import com.skyguard.monitor.agent.listener.AgentListener;
-import com.skyguard.monitor.agent.matcher.ClassMatcher;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -32,10 +31,11 @@ public class AgentManager {
                                 .or(nameStartsWith("org.apache.logging"))
                                 .or(nameStartsWith("org.groovy"))
                                 .or(nameContains("javassist"))
-                                .or(nameStartsWith("com.sun"))
+                                .or(nameStartsWith("sun"))
                                 .or(nameContains("asm"))
                                 .or(nameStartsWith("com.github"))
-                                .or(nameStartsWith("org.springframework"))
+                                .or(nameStartsWith("com.intellij"))
+                                .or(nameStartsWith("org.springframework.boot"))
                                 .or(nameStartsWith("com.skyguard.monitor"))
                                 .or(nameStartsWith("java"))
                                 .or(nameStartsWith("jdk"))
@@ -48,10 +48,8 @@ public class AgentManager {
 
 
     private ElementMatcher.Junction<TypeDescription> getTypes() {
-        ElementMatcher.Junction junction = ElementMatchers.failSafe(new ClassMatcher<>(ElementMatchers.any()));
+        ElementMatcher.Junction junction = ElementMatchers.any();
 
-        junction.and(not(isInterface()))
-                .and(not(isStatic()));
 
 
         return junction;
