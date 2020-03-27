@@ -5,10 +5,13 @@ import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.instrument.Instrumentation;
 
-import static net.bytebuddy.matcher.ElementMatchers.*;
+import static net.bytebuddy.matcher.ElementMatchers.nameContains;
+import static net.bytebuddy.matcher.ElementMatchers.nameStartsWith;
 
 /**
  * @author : xingrufei
@@ -48,7 +51,8 @@ public class AgentManager {
 
 
     private ElementMatcher.Junction<TypeDescription> getTypes() {
-        ElementMatcher.Junction junction = ElementMatchers.any();
+        ElementMatcher.Junction junction = ElementMatchers.isAnnotatedWith(Controller.class).or(ElementMatchers.isAnnotatedWith(RestController.class));
+
 
 
 
