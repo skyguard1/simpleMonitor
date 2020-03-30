@@ -207,6 +207,9 @@
                             <Premain-Class>
                                 com.skyguard.monitor.AgentMain
                             </Premain-Class>
+                            <Main-Class>
+                                com.skyguard.LoadAgentMain
+                            </Main-Class>
                             <Can-Redefine-Classes>
                                 true
                             </Can-Redefine-Classes>
