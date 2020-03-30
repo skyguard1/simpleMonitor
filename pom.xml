@@ -195,7 +195,7 @@
                         </goals>
                     </execution>
                 </executions>
-                <!--<configuration>
+                <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
@@ -215,81 +215,10 @@
                             </Can-Retransform-Classes>
                         </manifestEntries>
                     </archive>
-                </configuration>-->
+                </configuration>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.2</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <shadedArtifactAttached>false</shadedArtifactAttached>
-                            <createDependencyReducedPom>true</createDependencyReducedPom>
-                            <!--                            <createSourcesJar>true</createSourcesJar>-->
-                            <!--                            <shadeSourcesContent>true</shadeSourcesContent>-->
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <manifestEntries>
-                                        <Premain-Class>com.skyguard.monitor.AgentMain</Premain-Class>
-                                        <Agent-Class>com.skyguard.monitor.AgentMain</Agent-Class>
-                                        <Can-Retransform-Classes>true</Can-Retransform-Classes>
-                                        <Can-Redefine-Classes>true</Can-Redefine-Classes>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>com.lmax:*</exclude>
-                                    <exclude>com.sun:*</exclude>
-                                    <exclude>org.springframework:*</exclude>
-                                    <exclude>org.aopalliance:*</exclude>
-                                    <exclude>org.reactivestreams:*</exclude>
-                                    <exclude>reactor.*:*</exclude>
-                                    <exclude>org.apache:*</exclude>
-                                    <exclude>*:gson</exclude>
-                                    <exclude>io.grpc:*</exclude>
-                                    <exclude>io.netty:*</exclude>
-                                    <exclude>io.opencensus:*</exclude>
-                                    <exclude>com.google.*:*</exclude>
-                                    <exclude>com.slf4j.*:*</exclude>
-                                    <exclude>org.jetbrains.*:*</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <relocations>
-                                <relocation>
-                                    <pattern>net.bytebuddy</pattern>
-                                    <shadedPattern>${dependency.pakage}.net.bytebuddy</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.google.guava</pattern>
-                                    <shadedPattern>${dependency.pakage}.com.google.guava</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>io.swagger</pattern>
-                                    <shadedPattern>${dependency.pakage}.io.swagger</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.fasterxml</pattern>
-                                    <shadedPattern>${dependency.pakage}.com.fasterxml</shadedPattern>
-                                </relocation>
-                            </relocations>
-                            <filters>
-                                <filter>
-                                    <artifact>net.bytebuddy:byte-buddy</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/versions/9/module-info.class</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
 
         </plugins>
     </build>
