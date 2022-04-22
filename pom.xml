@@ -14,7 +14,7 @@
 
 
     <properties>
-        <spring.version>5.3.18</spring.version>
+        <spring.version>5.3.19</spring.version>
         <bytebuddy.version>1.9.2</bytebuddy.version>
         <dependency.pakage>com.skyguard.test</dependency.pakage>
     </properties>
